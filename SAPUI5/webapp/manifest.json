@@ -17,12 +17,11 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/sap/opu/odata/",
+        "uri": "/V2/Northwind/Northwind.svc/",
         "type": "OData",
         "settings": {
-          "annotations": [],
-          "localUri": "localService/metadata.xml",
-          "odataVersion": "2.0"
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
         }
       }
     }
@@ -69,10 +68,18 @@
           "bundleName": "DTT.SAPUI5.i18n.i18n"
         }
       },
-      "": {
+      "invoices": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "Invoices.json"
+      },
+      "northwind": {
         "dataSource": "mainService",
         "preload": true,
-        "settings": {}
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false
+        }
       }
     },
     "resources": {
@@ -95,19 +102,29 @@
       "routes": [
         {
           "name": "RouteAPP",
-          "pattern": "RouteAPP",
-          "target": [
-            "TargetAPP"
-          ]
+          "pattern": "",
+          "target": ["TargetOverview"]
+        },
+        {
+          "name": "Details",
+          "pattern": "details/${invoicePath}",
+          "target": ["TargetDetails"]
         }
       ],
       "targets": {
-        "TargetAPP": {
+        "TargetOverview": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "App",
-          "viewName": "App"
+          "viewId": "Overview",
+          "viewName": "Overview"
+        },
+        "TargetDetails": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Details",
+          "viewName": "Details"
         }
       }
     },
@@ -115,7 +132,7 @@
       "viewName": "DTT.SAPUI5.view.App",
       "type": "XML",
       "async": true,
-      "id": "App"
+      "id": "app"
     }
   }
 }

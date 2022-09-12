@@ -1,0 +1,56 @@
+<mvc:View id="_IDGenView1" 
+    xmlns="sap.m" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:core="sap.ui.core" 
+    controllerName="DTT.SAPUI5.controller.InvoicesList">
+    <Table id="_IDGenList1" 
+        headerText="{i18n>invoiceListTitle}"
+        class="sapUiResponsiveMargin"
+        width="auto"
+        items="{northwind>/Invoices}"
+        >
+        <headerToolbar>
+            <Toolbar id="_IDGenToolbar1">
+                <Title id="_IDGenTitle1" text="{i18n>invoiceListTitle}"/>
+                <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                <SearchField id="_IDGenSearchField1" width="50%" search=".onFilterInvoices" />
+            </Toolbar>
+        </headerToolbar>
+
+        <columns>
+            <Column id="_IDGenColumn1" hAlign="End" minScreenWidth="Small" demandPopin="true" width="5em">
+                <Text id="_IDGenText1" text="{i18n>columnQuantity}" />
+            </Column>
+            <Column id="_IDGenColumn2">
+                <Text id="_IDGenText2" text="{i18n>columnName}" />
+            </Column>
+            <Column id="_IDGenColumn3" minScreenWidth="Small" demandPopin="true">
+                <Text id="_IDGenText3" text="{i18n>columnStatus}" />
+            </Column>
+            <Column id="_IDGenColumn4" minScreenWidth="Tablet">
+                <Text id="_IDGenText4" text="{i18n>columnSupplier}" />
+            </Column>
+            <Column id="_IDGenColumn5" hAlign="End">
+                <Text id="_IDGenText5" text="{i18n>columnPrice}" />
+            </Column>
+        </columns>
+
+        <items>
+            <ColumnListItem id="_IDGenColumnListItem1" type="Navigation" press="navigateToDetails">
+                <cells id="_IDGenCells1">
+                    <ObjectNumber id="_IDGenObjectNumber1" number="{northwind>Quantity}" emphasized="false" />
+                    <ObjectIdentifier id="_IDGenObjectIdentifier1" title="{northwind>ProductName}" />
+                    <Text id="_IDGenObjectStatus1" text="{path:'northwind>Status', formatter:'.formatter.invoiceStatus'}" />
+                    <Text id="_IDGenText6" text="{northwind>ShipperName}" />
+                    <ObjectNumber id="_IDGenObjectListItem1" 
+                        number="{parts:[{path:'northwind>ExtendedPrice'}, {path:'Currency>/usd'}],
+                        type:'sap.ui.model.type.Currency',
+                        formatOptions:{showMeasure: false}}"
+                        numberUnit="{Currency>/usd}"
+                        numberState="{= ${northwind>ExtendedPrice}>50 ? 'Success' : 'Error'}"
+                    />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</mvc:View>
